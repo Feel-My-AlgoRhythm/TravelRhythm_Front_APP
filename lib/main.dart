@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
+import 'package:sw_travelrhythm/function/api_func.dart';
 import 'package:sw_travelrhythm/module/analysis/analysis.dart';
 import 'package:sw_travelrhythm/module/analysis/analysis_controller.dart';
 import 'package:sw_travelrhythm/module/naver_map/nmap.dart';
 import 'package:sw_travelrhythm/module/naver_map/nmap_controller.dart';
 import 'package:sw_travelrhythm/routes.dart';
 
-void main() {
+void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  await Get.putAsync(() => ApiFunction().init());
   FlutterNativeSplash.remove(); //로딩 끝나는 위치에 두어야 함(스플래시 제거)
   runApp(const MyApp());
 }
