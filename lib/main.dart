@@ -10,14 +10,13 @@ import 'package:sw_travelrhythm/routes.dart';
 void main() {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  FlutterNativeSplash.remove();
+  FlutterNativeSplash.remove(); //로딩 끝나는 위치에 두어야 함(스플래시 제거)
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -33,15 +32,15 @@ class MyApp extends StatelessWidget {
         //페이지 추가
         GetPage(
             name: Routes.analysis,
-            page: () => Analysis(),
+            page: () => const Analysis(),
             binding: BindingsBuilder(
               () => {Get.put(AnalysisController())},
             )),
         GetPage(
             name: Routes.nmap,
-            page: () => NMap(),
+            page: () => const NMap(),
             binding: BindingsBuilder(
-                  () => {Get.put(NMapController())},
+              () => {Get.put(NMapController())},
             )),
       ],
     );
