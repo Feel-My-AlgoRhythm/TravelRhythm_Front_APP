@@ -7,10 +7,6 @@ class NMapController extends GetxController {
   MapType mapType = MapType.Basic;
   LocationTrackingMode trackingMode = LocationTrackingMode.Follow;
 
-  @override
-  void onInit() {
-    super.onInit();
-  }
 
   onMapTap(LatLng position) async {
     Get.showSnackbar(GetBar(

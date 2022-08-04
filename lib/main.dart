@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:sw_travelrhythm/module/analysis/analysis.dart';
 import 'package:sw_travelrhythm/module/analysis/analysis_controller.dart';
@@ -7,6 +8,9 @@ import 'package:sw_travelrhythm/module/naver_map/nmap_controller.dart';
 import 'package:sw_travelrhythm/routes.dart';
 
 void main() {
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  FlutterNativeSplash.remove();
   runApp(const MyApp());
 }
 

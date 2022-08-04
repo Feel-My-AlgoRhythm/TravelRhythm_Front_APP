@@ -16,7 +16,7 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.2
   get: ^4.6.5
-  flutter_native_splash: ^2.2.7 #splah(첫 로고 화면)용 library
+  flutter_native_splash: ^2.2.7 # splah(첫 로고 화면)용 library
   flutter_naver_map:
     git: https://github.com/note11g/flutter_naver_map.git
 
@@ -25,7 +25,52 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^2.0.0
 
-
 flutter:
   uses-material-design: true
+  assets:
+    - asset/
+    - asset/image/
+
+  fonts:
+    # NotoSans-KR
+    - family: NotoB
+      fonts:
+        - asset: asset/font/Noto_Sans_KR/NotoSansKR-Bold.otf
+    - family: NotoL
+      fonts:
+        - asset: asset/font/Noto_Sans_KR/NotoSansKR-Light.otf
+    - family: NotoM
+      fonts:
+        - asset: asset/font/Noto_Sans_KR/NotoSansKR-Medium.otf
+    - family: NotoR
+      fonts:
+        - asset: asset/font/Noto_Sans_KR/NotoSansKR-Regular.otf
+    - family: NotoT
+      fonts:
+        - asset: asset/font/Noto_Sans_KR/NotoSansKR-Thin.otf
+    # NanumSquare
+    - family: NanumB
+      fonts:
+        - asset: asset/font/nanum-square/NanumSquareB.otf
+    - family: NanumEB
+      fonts:
+        - asset: asset/font/nanum-square/NanumSquareEB.otf
+    - family: NanumL
+      fonts:
+        - asset: asset/font/nanum-square/NanumSquareL.otf
+    - family: NanumR
+      fonts:
+        - asset: asset/font/nanum-square/NanumSquareR.otf
+    - family: NanumACB
+      fonts:
+        - asset: asset/font/nanum-square/NanumSquareOTF_acB.otf
+    - family: NanumACEB
+      fonts:
+        - asset: asset/font/nanum-square/NanumSquareOTF_acEB.otf
+    - family: NanumACL
+      fonts:
+        - asset: asset/font/nanum-square/NanumSquareOTF_acL.otf
+    - family: NanumACR
+      fonts:
+        - asset: asset/font/nanum-square/NanumSquareOTF_acR.otf
 
