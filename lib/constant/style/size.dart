@@ -1,0 +1,7 @@
+class GapSize {
+
+}
+
+class RadiusSize {
+
+}

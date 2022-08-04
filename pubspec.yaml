@@ -1,0 +1,31 @@
+name: sw_travelrhythm
+description: SW
+
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.17.6 <3.0.0"
+
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+  get: ^4.6.5
+  flutter_native_splash: ^2.2.7 #splah(첫 로고 화면)용 library
+  flutter_naver_map:
+    git: https://github.com/note11g/flutter_naver_map.git
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+
+flutter:
+  uses-material-design: true
+
