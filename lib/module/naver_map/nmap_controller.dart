@@ -1,12 +1,20 @@
 import 'dart:async';
+import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:get/get.dart';
+import 'package:sw_travelrhythm/model/search_address_model.dart';
 
 class NMapController extends GetxController {
   Completer<NaverMapController> completer = Completer();
   MapType mapType = MapType.Basic;
   LocationTrackingMode trackingMode = LocationTrackingMode.Follow;
 
+
+  @override
+  void onInit() async {
+    super.onInit();
+  }
 
   onMapTap(LatLng position) async {
     Get.showSnackbar(GetBar(
@@ -28,4 +36,6 @@ class NMapController extends GetxController {
     final nmapController = await completer.future;
     nmapController.setLocationTrackingMode(LocationTrackingMode.Follow);
   }
+
+
 }

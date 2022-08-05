@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:get/get.dart';
+import 'package:sw_travelrhythm/constant/style/size.dart';
 import 'package:sw_travelrhythm/constant/style/style.dart';
 import 'package:sw_travelrhythm/module/naver_map/nmap_controller.dart';
+import 'package:sw_travelrhythm/routes.dart';
 
 class NMap extends GetView<NMapController> {
   const NMap({Key? key}) : super(key: key);
@@ -12,7 +14,17 @@ class NMap extends GetView<NMapController> {
     return SafeArea(
       child: Scaffold(
         drawer: _buildDrawerListView(),
-        appBar: mainAppBar,
+        appBar: AppBar(
+          title: const Text("TravelRhythm"),
+          actions: [
+            IconButton(
+              onPressed: () {
+                Get.toNamed(Routes.search);
+              },
+              icon: const Icon(Icons.search_rounded),
+            )
+          ],
+        ),
         body: NaverMap(
           onMapCreated: controller.onMapCreated,
           mapType: controller.mapType,
@@ -28,24 +40,38 @@ class NMap extends GetView<NMapController> {
     );
   }
 
-  Widget _buildDrawerListView(){
+  Widget _buildDrawerListView() {
     return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: const [
-          ListTile(
-            title: Text("취향 검사 다시하기"),
-          ),
-          Divider(),
-          ListTile(
-            title: Text("Setting"),
-          ),
-          Divider(),
-          ListTile(
-            title: Text("위치 검색하기"),
-          ),
-          Divider(),
-        ],
+      child: Padding(
+        padding: const EdgeInsets.only(top: GapSize.xxLarge),
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: const [
+            CircleAvatar(
+              radius: 60,
+              backgroundColor: Colors.blue,
+            ),
+            SizedBox(
+              height: GapSize.medium,
+            ),
+            ListTile(
+              title: Text(
+                "취향 검사 다시하기",
+                style: drawerListTextStyle,
+              ),
+              leading: Icon(Icons.replay_rounded),
+            ),
+            Divider(),
+            ListTile(
+              title: Text(
+                "Setting",
+                style: drawerListTextStyle,
+              ),
+              leading: Icon(Icons.settings_rounded),
+            ),
+            Divider(),
+          ],
+        ),
       ),
     );
   }
