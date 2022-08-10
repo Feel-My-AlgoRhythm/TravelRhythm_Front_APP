@@ -50,6 +50,6 @@
 		<key>NSLocationWhenInUseUsageDescription</key>
 		<string>위치 권한의 허용이 필요합니다.</string>
 		<key>UIStatusBarHidden</key>
-		<true/>
+		<false/>
 	</dict>
 </plist>

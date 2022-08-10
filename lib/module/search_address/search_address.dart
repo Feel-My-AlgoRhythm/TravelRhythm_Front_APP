@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
+import 'package:sw_travelrhythm/constant/style/style.dart';
 import 'package:sw_travelrhythm/module/search_address/search_address_controller.dart';
 
 class SearchAddress extends GetView<SearchAddressController> {
@@ -10,6 +11,7 @@ class SearchAddress extends GetView<SearchAddressController> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: mainAppBar,
         body: Column(
           children: [
             SizedBox(
@@ -49,24 +51,36 @@ class SearchAddress extends GetView<SearchAddressController> {
               ),
             ),
             Obx(
-              () => Expanded(
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemBuilder: (BuildContext context, int index) {
-                    return ListTile(
-                      title: Text(
-                          "도로명 : ${controller.addressData.value[index].roadAddr}"),
-                      subtitle:
-                          Text("지번 : ${controller.addressData.value[index].jibunAddr}"),
-                      onTap: (){
-                        
+                  () =>
+                  Expanded(
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemBuilder: (BuildContext context, int index) {
+                        return ListTile(
+                          title: Text(
+                              "도로명 : ${controller.addressData.value[index]
+                                  .roadAddr}"),
+                          subtitle:
+                          Text("지번 : ${controller.addressData.value[index]
+                              .jibunAddr}"),
+                          onTap: () {
+                            controller.goToMapWithAddress(admCd: controller
+                                .addressData.value[index].admCd,
+                                rnMgtSn: controller.addressData.value[index]
+                                    .rnMgtSn,
+                                udrtYn: controller.addressData.value[index]
+                                    .udrtYn,
+                                buldMnnm: controller.addressData.value[index]
+                                    .buldMnnm,
+                                buldSlno: controller.addressData.value[index]
+                                    .buldSlno);
+                          },
+                        );
                       },
-                    );
-                  },
-                  scrollDirection: Axis.vertical,
-                  itemCount: controller.addressData.length,
-                ),
-              ),
+                      scrollDirection: Axis.vertical,
+                      itemCount: controller.addressData.length,
+                    ),
+                  ),
             )
           ],
         ),

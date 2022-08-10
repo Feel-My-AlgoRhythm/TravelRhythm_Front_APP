@@ -25,17 +25,18 @@ class NMap extends GetView<NMapController> {
             )
           ],
         ),
-        body: NaverMap(
-          onMapCreated: controller.onMapCreated,
-          mapType: controller.mapType,
-          initLocationTrackingMode: controller.trackingMode,
-          locationButtonEnable: true,
-          indoorEnable: true,
-          onMapTap: controller.onMapTap,
-          maxZoom: 20,
-          minZoom: 5,
-          logoClickEnabled: false,
-        ),
+        body: Obx(() => NaverMap(
+              onMapCreated: controller.onMapCreated,
+              mapType: controller.mapType,
+              initLocationTrackingMode: controller.trackingMode,
+              locationButtonEnable: true,
+              indoorEnable: true,
+              onMapTap: controller.onMapTap,
+              maxZoom: 20,
+              minZoom: 5,
+              logoClickEnabled: false,
+              markers: controller.markers.value,
+            )),
       ),
     );
   }
