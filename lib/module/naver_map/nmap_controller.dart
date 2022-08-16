@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:get/get.dart';
+import 'package:sw_travelrhythm/module/feed/feed.dart';
 
 class NMapController extends GetxController {
   Completer<NaverMapController> completer = Completer();
@@ -24,6 +25,9 @@ class NMapController extends GetxController {
     markers.removeLast();
   }
   void onMapCreated(NaverMapController controller) {
+    Get.bottomSheet(
+        const Feed()
+    );
     if (completer.isCompleted) completer = Completer();
     completer.complete(controller);
     goToMyLocation();

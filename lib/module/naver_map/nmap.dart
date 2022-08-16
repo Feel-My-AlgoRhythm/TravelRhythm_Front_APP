@@ -3,6 +3,7 @@ import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:get/get.dart';
 import 'package:sw_travelrhythm/constant/style/size.dart';
 import 'package:sw_travelrhythm/constant/style/style.dart';
+import 'package:sw_travelrhythm/module/feed/feed.dart';
 import 'package:sw_travelrhythm/module/naver_map/nmap_controller.dart';
 import 'package:sw_travelrhythm/routes.dart';
 
@@ -25,22 +26,60 @@ class NMap extends GetView<NMapController> {
             )
           ],
         ),
-        body: Obx(() => NaverMap(
-              onMapCreated: controller.onMapCreated,
-              mapType: controller.mapType,
-              initLocationTrackingMode: controller.trackingMode,
-              locationButtonEnable: true,
-              indoorEnable: true,
-              onMapTap: controller.onMapTap,
-              maxZoom: 20,
-              minZoom: 5,
-              logoClickEnabled: false,
-              markers: controller.markers.value,
+        body: Obx(() => Stack(
+              children: [
+                NaverMap(
+                  onMapCreated: controller.onMapCreated,
+                  mapType: controller.mapType,
+                  initLocationTrackingMode: controller.trackingMode,
+                  locationButtonEnable: true,
+                  indoorEnable: true,
+                  onMapTap: controller.onMapTap,
+                  maxZoom: 20,
+                  minZoom: 5,
+                  logoClickEnabled: false,
+                  markers: controller.markers.value,
+                ),
+                Container(
+                  height: MediaQuery.of(context).size.height /3,
+                  color: Colors.white,
+                  alignment: Alignment.topCenter,
+                    child: Column(
+                      children: [
+                        TextField(),
+                        Row(
+                          children: [
+                            Expanded(child: Text('카테고리 1')),
+                            Expanded(child: Text('카테고리 2')),
+                            Expanded(child: Text('카테고리 3')),
+                            Expanded(child: Text('카테고리 4')),
+                          ],
+                        )
+                      ],
+                    )),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: ElevatedButton(
+                      onPressed: () {}, child: Text('Go to Map')),
+                )
+              ],
             )),
       ),
     );
   }
 
+/*  NaverMap(
+  onMapCreated: controller.onMapCreated,
+  mapType: controller.mapType,
+  initLocationTrackingMode: controller.trackingMode,
+  locationButtonEnable: true,
+  indoorEnable: true,
+  onMapTap: controller.onMapTap,
+  maxZoom: 20,
+  minZoom: 5,
+  logoClickEnabled: false,
+  markers: controller.markers.value,
+  )*/
   Widget _buildDrawerListView() {
     return Drawer(
       child: Padding(
