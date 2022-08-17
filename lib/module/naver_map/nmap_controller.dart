@@ -25,9 +25,6 @@ class NMapController extends GetxController {
     markers.removeLast();
   }
   void onMapCreated(NaverMapController controller) {
-    Get.bottomSheet(
-        const Feed()
-    );
     if (completer.isCompleted) completer = Completer();
     completer.complete(controller);
     goToMyLocation();

@@ -9,6 +9,4 @@ class FeedController extends GetxController {
   void onInit() async {
   }
 
-
-
 }

@@ -1,3 +1,4 @@
+import 'package:expandable_bottom_sheet/expandable_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:get/get.dart';
@@ -40,27 +41,68 @@ class NMap extends GetView<NMapController> {
                   logoClickEnabled: false,
                   markers: controller.markers.value,
                 ),
-                Container(
-                  height: MediaQuery.of(context).size.height /3,
-                  color: Colors.white,
-                  alignment: Alignment.topCenter,
+                Align(
+                    alignment: Alignment.topCenter,
                     child: Column(
                       children: [
-                        TextField(),
-                        Row(
-                          children: [
-                            Expanded(child: Text('카테고리 1')),
-                            Expanded(child: Text('카테고리 2')),
-                            Expanded(child: Text('카테고리 3')),
-                            Expanded(child: Text('카테고리 4')),
-                          ],
-                        )
+                        Container(
+                          decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.2),
+                                  spreadRadius: 3,
+                                  blurRadius: 5,
+                                  offset: const Offset(
+                                      0, 0), // changes position of shadow
+                                )
+                              ],
+                              color: Colors.white,
+                              borderRadius:
+                                  BorderRadius.circular(RadiusSize.small)),
+                          margin: const EdgeInsets.all(GapSize.medium),
+                          child: const Padding(
+                            padding: EdgeInsets.all(GapSize.xSmall),
+                            child: TextField(
+                              decoration: InputDecoration(hintText: 'Search'),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          height: ButtonHeight.xxxLarge,
+                          child: ListView(
+                            scrollDirection: Axis.horizontal,
+                            children: [
+                              _buildCategoryButton(() {}, '카테고리 1'),
+                              _buildCategoryButton(() {}, '카테고리 2'),
+                              _buildCategoryButton(() {}, '카테고리 3'),
+                              _buildCategoryButton(() {}, '카테고리 4'),
+                              _buildCategoryButton(() {}, '카테고리 5'),
+                              _buildCategoryButton(() {}, '카테고리 6'),
+                              _buildCategoryButton(() {}, '카테고리 7'),
+                              _buildCategoryButton(() {}, '카테고리 8'),
+                            ],
+                          ),
+                        ),
                       ],
                     )),
                 Align(
                   alignment: Alignment.bottomCenter,
-                  child: ElevatedButton(
-                      onPressed: () {}, child: Text('Go to Map')),
+                  child: GestureDetector(
+                    onPanUpdate: (details) {
+                      if (details.delta.dy > 0)
+                        Get.back();
+                      else
+                        Get.bottomSheet(Feed());
+                    },
+                    child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: 60,
+                        color: Colors.black,
+                        child: Text(
+                          'Go to Map',
+                          style: TextStyle(color: Colors.white),
+                        )),
+                  ),
                 )
               ],
             )),
@@ -68,18 +110,16 @@ class NMap extends GetView<NMapController> {
     );
   }
 
-/*  NaverMap(
-  onMapCreated: controller.onMapCreated,
-  mapType: controller.mapType,
-  initLocationTrackingMode: controller.trackingMode,
-  locationButtonEnable: true,
-  indoorEnable: true,
-  onMapTap: controller.onMapTap,
-  maxZoom: 20,
-  minZoom: 5,
-  logoClickEnabled: false,
-  markers: controller.markers.value,
-  )*/
+  Widget _buildCategoryButton(Function() onPressed, String category) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: GapSize.xxSmall),
+      child: ElevatedButton(
+        onPressed: onPressed,
+        child: Text(category),
+      ),
+    );
+  }
+
   Widget _buildDrawerListView() {
     return Drawer(
       child: Padding(
