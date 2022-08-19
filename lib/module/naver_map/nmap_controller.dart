@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:get/get.dart';
+import 'package:solid_bottom_sheet/solid_bottom_sheet.dart';
 import 'package:sw_travelrhythm/module/feed/feed.dart';
 
 class NMapController extends GetxController {
@@ -8,6 +9,7 @@ class NMapController extends GetxController {
   MapType mapType = MapType.Basic;
   LocationTrackingMode trackingMode = LocationTrackingMode.Follow;
   RxList<Marker> markers = <Marker>[].obs;
+  SolidController solidController = SolidController();
 
   @override
   void onInit() async {

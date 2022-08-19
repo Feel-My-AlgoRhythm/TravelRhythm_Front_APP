@@ -11,53 +11,64 @@ class Feed extends GetView<FeedController> {
   @override
   Widget build(BuildContext context) {
     return Stack(
-      children: [Container(
-        padding: EdgeInsets.only(top: GapSize.xxLarge),
-        decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.2),
-                spreadRadius: 3,
-                blurRadius: 5,
-                offset: const Offset(0, 0), // changes position of shadow
-              )
+      children: [
+        Container(
+          padding: EdgeInsets.only(top: 100),
+          color: Colors.white,
+          child: ListView(
+            children: const [
+              ListTile(
+                title: Text('1번'),
+              ),
+              ListTile(
+                title: Text('1번'),
+              ),
+              ListTile(
+                title: Text('1번'),
+              ),
+              ListTile(
+                title: Text('1번'),
+              ),
+              ListTile(
+                title: Text('1번'),
+              ),
+              ListTile(
+                title: Text('1번'),
+              ),
+              ListTile(
+                title: Text('1번'),
+              ),
+              ListTile(
+                title: Text('1번'),
+              ),
+              ListTile(
+                title: Text('1번'),
+              ),
+              ListTile(
+                title: Text('1번'),
+              ),
+              ListTile(
+                title: Text('1번'),
+              ),
+              ListTile(
+                title: Text('1번'),
+              ),
+              ListTile(
+                title: Text('1번'),
+              ),
             ],
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(RadiusSize.medium)),
-        child: ListView(
-          children: [
-            ListTile(
-              title: Text('1번'),
-            ),
-            ListTile(
-              title: Text('1번'),
-            ),
-            ListTile(
-              title: Text('1번'),
-            ),
-            ListTile(
-              title: Text('1번'),
-            ),
-            ListTile(
-              title: Text('1번'),
-            ),
-            ListTile(
-              title: Text('1번'),
-            ),
-            ListTile(
-              title: Text('1번'),
-            ),
-
-          ],
+          ),
         ),
-      ),
         Align(
           alignment: Alignment.bottomCenter,
-            child: ElevatedButton(
-                onPressed: () {
-                  Get.back();
-                }, child: Text('Go to Map'))
-        )],
+          child: ElevatedButton(
+            onPressed: () {
+              controller.closeSheet();
+            },
+            child: const Text('Go To Map'),
+          ),
+        )
+      ],
     );
   }
 }

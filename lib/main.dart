@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:sw_travelrhythm/function/api_func.dart';
 import 'package:sw_travelrhythm/module/analysis/analysis.dart';
 import 'package:sw_travelrhythm/module/analysis/analysis_controller.dart';
+import 'package:sw_travelrhythm/module/feed/feed_controller.dart';
 import 'package:sw_travelrhythm/module/naver_map/nmap.dart';
 import 'package:sw_travelrhythm/module/naver_map/nmap_controller.dart';
 import 'package:sw_travelrhythm/module/search_address/search_address.dart';
@@ -44,7 +45,7 @@ class MyApp extends StatelessWidget {
             name: Routes.nmap,
             page: () => const NMap(),
             binding: BindingsBuilder(
-              () => {Get.put(NMapController())},
+              () => {Get.put(NMapController()), Get.put(FeedController())},
             )),
         GetPage(
             name: Routes.search,
@@ -52,6 +53,7 @@ class MyApp extends StatelessWidget {
             binding: BindingsBuilder(
                   () => {Get.put(SearchAddressController())},
             )),
+
       ],
     );
   }
