@@ -16,6 +16,7 @@ class NMap extends GetView<NMapController> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         drawer: _buildDrawerListView(),
         appBar: AppBar(
           title: const Text("TravelRhythm"),
@@ -48,7 +49,7 @@ class NMap extends GetView<NMapController> {
                       maxHeight: (MediaQuery.of(context).size.height -
                               kToolbarHeight) *
                           0.75,
-                      showOnAppear: true,
+                      showOnAppear: false,
                       controller: controller.solidController,
                       draggableBody: true,
                       headerBar: Container(
