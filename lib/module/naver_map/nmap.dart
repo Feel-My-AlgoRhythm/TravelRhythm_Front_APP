@@ -14,8 +14,6 @@ class NMap extends GetView<NMapController> {
 
   @override
   Widget build(BuildContext context) {
-    SheetController sheetController = SheetController();
-
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -92,7 +90,7 @@ class NMap extends GetView<NMapController> {
                         ],
                         color: Colors.white,
                         borderRadius: const BorderRadius.vertical(
-                            bottom: const Radius.circular(RadiusSize.medium)),
+                            bottom: Radius.circular(RadiusSize.medium)),
                       ),
                       child: Column(
                         children: [
@@ -118,7 +116,7 @@ class NMap extends GetView<NMapController> {
                               ),
                             ),
                           ),
-                          Container(
+                          SizedBox(
                             height: ButtonHeight.xxxLarge,
                             child: ListView(
                               scrollDirection: Axis.horizontal,
