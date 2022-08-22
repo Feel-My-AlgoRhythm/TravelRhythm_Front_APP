@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:get/get.dart';
+import 'package:sheet/sheet.dart';
 import 'package:solid_bottom_sheet/solid_bottom_sheet.dart';
 import 'package:sw_travelrhythm/constant/style/size.dart';
 import 'package:sw_travelrhythm/constant/style/style.dart';
 import 'package:sw_travelrhythm/module/feed/feed.dart';
-import 'package:sw_travelrhythm/module/feed/feed_controller.dart';
 import 'package:sw_travelrhythm/module/naver_map/nmap_controller.dart';
 import 'package:sw_travelrhythm/routes.dart';
 
@@ -14,6 +14,8 @@ class NMap extends GetView<NMapController> {
 
   @override
   Widget build(BuildContext context) {
+    SheetController sheetController = SheetController();
+
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -65,19 +67,18 @@ class NMap extends GetView<NMapController> {
                             )
                           ],
                           color: Colors.white,
-                          borderRadius: BorderRadius.vertical(top: Radius.circular(RadiusSize.large)),
+                          borderRadius: const BorderRadius.vertical(
+                              top: Radius.circular(RadiusSize.large)),
                         ),
-                        child: const Center(
-                          child: Icon(Icons.maximize)
-                        ),
+                        child: const Center(child: Icon(Icons.maximize)),
                       ),
-                      body: Feed()),
+                      body: const Feed()),
                 ),
                 Align(
                     alignment: Alignment.topCenter,
                     child: Container(
                       height: (MediaQuery.of(context).size.height -
-                          kToolbarHeight) *
+                              kToolbarHeight) *
                           0.2,
                       decoration: BoxDecoration(
                         boxShadow: [
@@ -90,7 +91,8 @@ class NMap extends GetView<NMapController> {
                           )
                         ],
                         color: Colors.white,
-                        borderRadius: BorderRadius.vertical(bottom: Radius.circular(RadiusSize.medium)),
+                        borderRadius: const BorderRadius.vertical(
+                            bottom: const Radius.circular(RadiusSize.medium)),
                       ),
                       child: Column(
                         children: [
@@ -107,7 +109,7 @@ class NMap extends GetView<NMapController> {
                                 ],
                                 color: Colors.white,
                                 borderRadius:
-                                BorderRadius.circular(RadiusSize.small)),
+                                    BorderRadius.circular(RadiusSize.small)),
                             margin: const EdgeInsets.all(GapSize.medium),
                             child: const Padding(
                               padding: EdgeInsets.all(GapSize.xSmall),
