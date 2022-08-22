@@ -59,6 +59,9 @@ class Feed extends GetView<FeedController> {
                 ListTile(
                   title: Text('1번'),
                 ),
+                ListTile(
+                  title: Text('1번'),
+                ),
               ],
             ),
           ),
