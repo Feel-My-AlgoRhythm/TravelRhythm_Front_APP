@@ -38,7 +38,7 @@ class NMap extends GetView<NMapController> {
                   locationButtonEnable: true,
                   indoorEnable: true,
                   onMapTap: controller.onMapTap,
-                  maxZoom: 20,
+                  maxZoom: 10,
                   minZoom: 5,
                   logoClickEnabled: false,
                   markers: controller.markers.value,
