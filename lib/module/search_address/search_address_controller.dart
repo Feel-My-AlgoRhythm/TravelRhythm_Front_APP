@@ -100,7 +100,7 @@ class SearchAddressController extends GetxController {
     return true;
   }
 
-  Future<void> goToMapWithAddress(
+/*  Future<void> goToMapWithAddress(
       {required String admCd,
       required String rnMgtSn,
       required String udrtYn,
@@ -138,5 +138,5 @@ class SearchAddressController extends GetxController {
     final LatLng position = LatLng(point.y, point.x);
     mapController.goToSelectedLocation(position);
     Get.back();
-  }
+  }*/
 }

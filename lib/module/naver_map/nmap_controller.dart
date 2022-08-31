@@ -43,7 +43,7 @@ class NMapController extends GetxController {
     nmapController.setLocationTrackingMode(LocationTrackingMode.Follow);
   }
 
-  void goToSelectedLocation(LatLng position) async {
+/*  void goToSelectedLocation(LatLng position) async {
     final nmapController = await completer.future;
 
     markers.add(Marker(
@@ -55,7 +55,7 @@ class NMapController extends GetxController {
         LatLng(position.latitude, position.longitude),
         zoom: 18);
     nmapController.moveCamera(cameraPosition);
-  }
+  }*/
 
   void onMarkerTap(Marker? marker, Map<String, int?> iconSize) {
     Get.toNamed(Routes.marker, arguments: {'position': marker?.position});
