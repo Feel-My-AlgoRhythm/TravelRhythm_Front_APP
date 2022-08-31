@@ -13,13 +13,12 @@ class MarkerDetail extends GetView<MarkerDetailController> {
     LatLng position = Get.arguments['position'];
     return Scaffold(
       body: Center(
-        child:
-            ElevatedButton(
-              onPressed: () {
-                Get.back();
-              },
-              child: Text('${position.latitude} and ${position.longitude}'),
-            ),
+        child: ElevatedButton(
+          onPressed: () {
+            Get.back();
+          },
+          child: Text('${position.latitude} and ${position.longitude}'),
+        ),
       ),
     );
   }
