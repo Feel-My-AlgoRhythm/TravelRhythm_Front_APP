@@ -12,25 +12,25 @@ class GapSize {
 }
 
 class WidthWithRatio {
-  static double xxxSmall = Get.width/45;
-  static double xxSmall = Get.width/30;
-  static double xSmall = Get.width/20;
-  static double small = Get.width/15;
-  static double medium = Get.width/10;
-  static double large = Get.width/8;
-  static double xLarge = Get.width/6;
-  static double xxLarge = Get.width/4;
+  static double xxxSmall = Get.width / 45;
+  static double xxSmall = Get.width / 30;
+  static double xSmall = Get.width / 20;
+  static double small = Get.width / 15;
+  static double medium = Get.width / 10;
+  static double large = Get.width / 8;
+  static double xLarge = Get.width / 6;
+  static double xxLarge = Get.width / 4;
 }
 
 class HeightWithRatio {
-  static double xxxSmall = Get.height/30;
-  static double xxSmall = Get.height/25;
-  static double xSmall = Get.height/20;
-  static double small = Get.height/15;
-  static double medium = Get.height/10;
-  static double large = Get.height/8;
-  static double xLarge = Get.height/6;
-  static double xxLarge = Get.height/4;
+  static double xxxSmall = Get.height / 30;
+  static double xxSmall = Get.height / 25;
+  static double xSmall = Get.height / 20;
+  static double small = Get.height / 15;
+  static double medium = Get.height / 10;
+  static double large = Get.height / 8;
+  static double xLarge = Get.height / 6;
+  static double xxLarge = Get.height / 4;
 }
 
 class RadiusSize {

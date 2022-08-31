@@ -8,12 +8,9 @@ class FeedController extends GetxController {
   final nmap = Get.find<NMapController>();
 
   @override
-  void onInit() async {
-
-  }
+  void onInit() async {}
 
   void closeSheet() {
     nmap.solidController.hide();
   }
-
 }

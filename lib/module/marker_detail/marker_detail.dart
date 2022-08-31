@@ -5,11 +5,8 @@ import 'package:sw_travelrhythm/constant/style/size.dart';
 import 'package:sw_travelrhythm/module/marker_detail/marker_detail_controller.dart';
 
 class MarkerDetail extends GetView<MarkerDetailController> {
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-
-    );
+    return Scaffold();
   }
 }

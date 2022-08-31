@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
-import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:sw_travelrhythm/constant/style/size.dart';
 import 'package:sw_travelrhythm/constant/style/style.dart';
 import 'package:sw_travelrhythm/module/search_address/search_address_controller.dart';
@@ -124,7 +122,8 @@ class SearchAddress extends GetView<SearchAddressController> {
               controller.selectedCategorys[0][index] =
                   !controller.selectedCategorys[0][index];
             },
-            borderRadius: const BorderRadius.all(Radius.circular(RadiusSize.small)),
+            borderRadius:
+                const BorderRadius.all(Radius.circular(RadiusSize.small)),
             selectedBorderColor: Colors.green[700],
             selectedColor: Colors.white,
             fillColor: Colors.green[200],
@@ -146,7 +145,8 @@ class SearchAddress extends GetView<SearchAddressController> {
               controller.selectedCategorys[1][index] =
                   !controller.selectedCategorys[1][index];
             },
-            borderRadius: const BorderRadius.all(Radius.circular(RadiusSize.small)),
+            borderRadius:
+                const BorderRadius.all(Radius.circular(RadiusSize.small)),
             selectedBorderColor: Colors.green[700],
             selectedColor: Colors.white,
             fillColor: Colors.green[200],
@@ -168,7 +168,8 @@ class SearchAddress extends GetView<SearchAddressController> {
               controller.selectedCategorys[2][index] =
                   !controller.selectedCategorys[2][index];
             },
-            borderRadius: const BorderRadius.all(Radius.circular(RadiusSize.small)),
+            borderRadius:
+                const BorderRadius.all(Radius.circular(RadiusSize.small)),
             selectedBorderColor: Colors.green[700],
             selectedColor: Colors.white,
             fillColor: Colors.green[200],

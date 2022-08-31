@@ -53,13 +53,13 @@ class MyApp extends StatelessWidget {
             name: Routes.search,
             page: () => const SearchAddress(),
             binding: BindingsBuilder(
-                  () => {Get.put(SearchAddressController())},
+              () => {Get.put(SearchAddressController())},
             )),
         GetPage(
             name: Routes.marker,
             page: () => MarkerDetail(),
             binding: BindingsBuilder(
-                  () => {Get.put(MarkerDetailController())},
+              () => {Get.put(MarkerDetailController())},
             )),
       ],
     );
