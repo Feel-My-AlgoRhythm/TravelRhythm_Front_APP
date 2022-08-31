@@ -17,13 +17,6 @@ class NMapController extends GetxController {
   }
 
   onMapTap(LatLng position) async {
-    Get.showSnackbar(GetBar(
-      duration: const Duration(milliseconds: 1500),
-      snackPosition: SnackPosition.BOTTOM,
-      snackStyle: SnackStyle.GROUNDED,
-      title: '터치한 위치',
-      message: '[onTap] lat: ${position.latitude}, lon: ${position.longitude}',
-    ));
     markers.add(Marker(
         markerId: DateTime.now().toIso8601String(),
         position: position,

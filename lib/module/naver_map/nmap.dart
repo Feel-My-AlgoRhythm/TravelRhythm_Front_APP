@@ -99,7 +99,7 @@ class NMap extends GetView<NMapController> {
           child: Column(
             children: [
               Container(
-                width: Get.width / 1.5,
+                width: Get.width / 1.2,
                 decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
