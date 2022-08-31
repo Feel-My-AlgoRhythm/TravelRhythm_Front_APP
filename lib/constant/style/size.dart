@@ -19,7 +19,7 @@ class WidthWithRatio {
   static double medium = Get.width/10;
   static double large = Get.width/8;
   static double xLarge = Get.width/6;
-  static double xxLarge = Get.width/3;
+  static double xxLarge = Get.width/4;
 }
 
 class HeightWithRatio {

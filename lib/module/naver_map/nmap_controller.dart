@@ -28,6 +28,7 @@ class NMapController extends GetxController {
   void onMapCreated(NaverMapController controller) {
     if (completer.isCompleted) completer = Completer();
     completer.complete(controller);
+    solidController.show();
     goToMyLocation();
   }
 

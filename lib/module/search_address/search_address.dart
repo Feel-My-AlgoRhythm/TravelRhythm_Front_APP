@@ -13,6 +13,7 @@ class SearchAddress extends GetView<SearchAddressController> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: mainAppBar,
         body: Padding(
           padding: EdgeInsets.symmetric(
