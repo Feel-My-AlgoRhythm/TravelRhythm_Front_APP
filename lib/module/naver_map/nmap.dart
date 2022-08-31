@@ -98,57 +98,68 @@ class NMap extends GetView<NMapController> {
           ),
           child: Column(
             children: [
-              InkWell(
-                onTap: (){
-                  Get.toNamed(Routes.search);
-                },
-                child: Container(
-                  width: Get.width / 1.5,
-                  decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.2),
-                          spreadRadius: 3,
-                          blurRadius: 5,
-                          offset:
-                              const Offset(0, 0), // changes position of shadow
-                        )
-                      ],
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(RadiusSize.small)),
-                  margin: const EdgeInsets.all(GapSize.medium),
-                  child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: GapSize.small, vertical: GapSize.small),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.only(right: GapSize.small),
-                            child: Icon(
-                              Icons.search_rounded,
-                            ),
-                          ),
-                          Expanded(
-                              child: Container(
-                            padding:
-                                const EdgeInsets.only(bottom: GapSize.xxxSmall),
-                            decoration: const BoxDecoration(
-                              border: Border(
-                                  bottom: BorderSide(
-                                color: Colors.grey,
-                                width: 1.0,
+              Container(
+                width: Get.width / 1.5,
+                decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.2),
+                        spreadRadius: 3,
+                        blurRadius: 5,
+                        offset:
+                            const Offset(0, 0), // changes position of shadow
+                      )
+                    ],
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(RadiusSize.large)),
+                margin: const EdgeInsets.all(GapSize.medium),
+                child: Material(
+                  borderRadius: BorderRadius.circular(RadiusSize.large),
+                  child: Ink(
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(RadiusSize.large)),
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(RadiusSize.large),
+                      onTap: () {
+                        Get.toNamed(Routes.search);
+                      },
+                      child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: GapSize.small,
+                              vertical: GapSize.small),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const Padding(
+                                padding: EdgeInsets.only(right: GapSize.small),
+                                child: Icon(
+                                  Icons.search_rounded,
+                                ),
+                              ),
+                              Expanded(
+                                  child: Container(
+                                padding: const EdgeInsets.only(
+                                    bottom: GapSize.xxxSmall),
+                                decoration: const BoxDecoration(
+                                  border: Border(
+                                      bottom: BorderSide(
+                                    color: Colors.grey,
+                                    width: 1.0,
+                                  )),
+                                ),
+                                alignment: Alignment.center,
+                                child: const Text(
+                                  'Where to go?',
+                                  style: TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: FontSize.large),
+                                ),
                               )),
-                            ),
-                            alignment: Alignment.center,
-                            child: const Text(
-                              'Where to go?',
-                              style: TextStyle(
-                                  color: Colors.grey, fontSize: FontSize.large),
-                            ),
+                            ],
                           )),
-                        ],
-                      )),
+                    ),
+                  ),
                 ),
               ),
               SizedBox(
