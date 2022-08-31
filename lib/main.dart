@@ -5,6 +5,8 @@ import 'package:sw_travelrhythm/function/api_func.dart';
 import 'package:sw_travelrhythm/module/analysis/analysis.dart';
 import 'package:sw_travelrhythm/module/analysis/analysis_controller.dart';
 import 'package:sw_travelrhythm/module/feed/feed_controller.dart';
+import 'package:sw_travelrhythm/module/marker_detail/marker_detail.dart';
+import 'package:sw_travelrhythm/module/marker_detail/marker_detail_controller.dart';
 import 'package:sw_travelrhythm/module/naver_map/nmap.dart';
 import 'package:sw_travelrhythm/module/naver_map/nmap_controller.dart';
 import 'package:sw_travelrhythm/module/search_address/search_address.dart';
@@ -50,10 +52,19 @@ class MyApp extends StatelessWidget {
         GetPage(
             name: Routes.search,
             page: () => const SearchAddress(),
+            transition: Transition.rightToLeft,
+            transitionDuration: const Duration(milliseconds: 200),
             binding: BindingsBuilder(
-                  () => {Get.put(SearchAddressController())},
+              () => {Get.put(SearchAddressController())},
             )),
-
+        GetPage(
+            name: Routes.marker,
+            page: () => const MarkerDetail(),
+            transition: Transition.zoom,
+            transitionDuration: const Duration(milliseconds: 250),
+            binding: BindingsBuilder(
+              () => {Get.put(MarkerDetailController())},
+            )),
       ],
     );
   }
