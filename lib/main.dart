@@ -57,7 +57,7 @@ class MyApp extends StatelessWidget {
             )),
         GetPage(
             name: Routes.marker,
-            page: () => MarkerDetail(),
+            page: () => const MarkerDetail(),
             binding: BindingsBuilder(
               () => {Get.put(MarkerDetailController())},
             )),

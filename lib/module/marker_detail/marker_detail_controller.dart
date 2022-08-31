@@ -5,12 +5,9 @@ import 'package:sw_travelrhythm/module/naver_map/nmap_controller.dart';
 
 class MarkerDetailController extends GetxController {
   final dio = Dio();
-  final nmap = Get.find<NMapController>();
+
 
   @override
   void onInit() async {}
 
-  void closeSheet() {
-    nmap.solidController.hide();
-  }
 }

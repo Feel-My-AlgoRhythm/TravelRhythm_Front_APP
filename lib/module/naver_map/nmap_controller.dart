@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:get/get.dart';
 import 'package:solid_bottom_sheet/solid_bottom_sheet.dart';
+import 'package:sw_travelrhythm/routes.dart';
 
 class NMapController extends GetxController {
   Completer<NaverMapController> completer = Completer();
@@ -23,13 +24,18 @@ class NMapController extends GetxController {
       title: '터치한 위치',
       message: '[onTap] lat: ${position.latitude}, lon: ${position.longitude}',
     ));
-    markers.removeLast();
+    markers.add(Marker(
+        markerId: DateTime.now().toIso8601String(),
+        position: position,
+        infoWindow: '테스트',
+        onMarkerTab: onMarkerTap));
   }
-  void onMapCreated(NaverMapController controller) {
+
+  void onMapCreated(NaverMapController controller) async {
     if (completer.isCompleted) completer = Completer();
     completer.complete(controller);
-    solidController.show();
     goToMyLocation();
+    solidController.show();
   }
 
   void goToMyLocation() async {
@@ -39,15 +45,19 @@ class NMapController extends GetxController {
 
   void goToSelectedLocation(LatLng position) async {
     final nmapController = await completer.future;
+
     markers.add(Marker(
-      markerId: DateTime.now().toIso8601String(),
-      position: position,
-      infoWindow: '테스트',
-    ));
+        markerId: DateTime.now().toIso8601String(),
+        position: position,
+        infoWindow: '테스트',
+        onMarkerTab: onMarkerTap));
     final cameraPosition = CameraUpdate.scrollWithOptions(
         LatLng(position.latitude, position.longitude),
         zoom: 18);
     nmapController.moveCamera(cameraPosition);
   }
 
+  void onMarkerTap(Marker? marker, Map<String, int?> iconSize) {
+    Get.toNamed(Routes.marker, arguments: {'position': marker?.position});
+  }
 }
