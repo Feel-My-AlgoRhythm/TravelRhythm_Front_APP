@@ -17,9 +17,9 @@ class SearchAddressController extends GetxController {
   var editAddressFocus = FocusNode();
 
   final List<List<Widget>> categorys = [
-    <Widget>[Text('카테고리 1'), Text('카테고리 2'), Text('카테고리 3')],
-    <Widget>[Text('카테고리 4'), Text('카테고리 5'), Text('카테고리 6')],
-    <Widget>[Text('카테고리 7'), Text('카테고리 8'), Text('카테고리 9')]
+    <Widget>[const Text('카테고리 1'), const Text('카테고리 2'), const Text('카테고리 3')],
+    <Widget>[const Text('카테고리 4'), const Text('카테고리 5'), const Text('카테고리 6')],
+    <Widget>[const Text('카테고리 7'), const Text('카테고리 8'), const Text('카테고리 9')]
   ];
 
   List<RxList<bool>> selectedCategorys = [

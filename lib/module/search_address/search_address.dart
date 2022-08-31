@@ -136,7 +136,7 @@ class SearchAddress extends GetView<SearchAddressController> {
             isSelected: controller.selectedCategorys[0].value,
             children: controller.categorys[0],
           ),
-          SizedBox(
+          const SizedBox(
             height: GapSize.small,
           ),
           ToggleButtons(
@@ -158,7 +158,7 @@ class SearchAddress extends GetView<SearchAddressController> {
             isSelected: controller.selectedCategorys[1].value,
             children: controller.categorys[1],
           ),
-          SizedBox(
+          const SizedBox(
             height: GapSize.small,
           ),
           ToggleButtons(
