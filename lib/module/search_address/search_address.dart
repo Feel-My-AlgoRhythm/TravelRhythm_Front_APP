@@ -13,90 +13,99 @@ class SearchAddress extends GetView<SearchAddressController> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
         appBar: mainAppBar,
         body: Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: WidthWithRatio.small,
-              vertical: HeightWithRatio.xSmall),
+          padding: EdgeInsets.fromLTRB(WidthWithRatio.small,
+              HeightWithRatio.xSmall, WidthWithRatio.small, GapSize.medium),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                '지역 검색',
-                style: TextStyle(fontSize: FontSize.medium),
-              ),
-              const SizedBox(
-                height: GapSize.small,
-              ),
-              Container(
-                padding: const EdgeInsets.only(bottom: GapSize.xSmall),
-                width: Get.width / 1.5,
-                decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey, width: 1.0)),
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: GapSize.xSmall),
-                  child: TextField(
-                    controller: controller.editAddress,
-                    focusNode: controller.editAddressFocus,
-                    style: const TextStyle(
-                        fontSize: FontSize.large,
-                        fontFamily: 'NotoSansKR-Medium'),
-                    decoration: const InputDecoration(
-                      hintText: '지역 검색',
-                      hintStyle: TextStyle(
-                          fontSize: FontSize.large,
-                          fontFamily: 'NotoSansKR-Medium',
-                          color: Colors.grey),
-                      contentPadding: EdgeInsets.zero,
-                      filled: false,
-                      border: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.grey,
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        '지역 검색',
+                        style: TextStyle(fontSize: FontSize.medium),
+                      ),
+                      const SizedBox(
+                        height: GapSize.small,
+                      ),
+                      Container(
+                        padding: const EdgeInsets.only(bottom: GapSize.xSmall),
+                        width: (Get.width / 4) * 3,
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey, width: 1.0)),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: GapSize.xSmall),
+                          child: TextField(
+                            controller: controller.editAddress,
+                            focusNode: controller.editAddressFocus,
+                            style: const TextStyle(
+                                fontSize: FontSize.large,
+                                fontFamily: 'NotoSansKR-Medium'),
+                            decoration: const InputDecoration(
+                              hintText: '지역 검색',
+                              hintStyle: TextStyle(
+                                  fontSize: FontSize.large,
+                                  fontFamily: 'NotoSansKR-Medium',
+                                  color: Colors.grey),
+                              contentPadding: EdgeInsets.zero,
+                              filled: false,
+                              border: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.grey,
+                                ),
+                              ),
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.grey,
+                                ),
+                              ),
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.grey,
+                                ),
+                              ),
+                              disabledBorder: InputBorder.none,
+                              errorBorder: InputBorder.none,
+                              focusedErrorBorder: InputBorder.none,
+                            ),
+                          ),
                         ),
                       ),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.grey,
-                        ),
+                      SizedBox(
+                        height: HeightWithRatio.small,
                       ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.grey,
-                        ),
+                      const Text(
+                        '대분류 선택',
+                        style: TextStyle(fontSize: FontSize.medium),
                       ),
-                      disabledBorder: InputBorder.none,
-                      errorBorder: InputBorder.none,
-                      focusedErrorBorder: InputBorder.none,
-                    ),
+                      const SizedBox(
+                        height: GapSize.small,
+                      ),
+                      _buildCategoryToogleLayout(),
+                    ],
                   ),
                 ),
-              ),
-              SizedBox(
-                height: HeightWithRatio.small,
-              ),
-              const Text(
-                '대분류 선택',
-                style: TextStyle(fontSize: FontSize.medium),
-              ),
-              const SizedBox(
-                height: GapSize.small,
-              ),
-              _buildCategoryToogleLayout(),
-              SizedBox(
-                height: HeightWithRatio.small,
               ),
               SizedBox(
                 width: Get.width,
                 height: ButtonHeight.large,
                 child: ElevatedButton(
-                  onPressed: (){
+                  onPressed: () {
                     Get.back();
                   },
-                  child: const Text('검색', style: TextStyle(fontSize: FontSize.large, color: Colors.white, fontFamily: 'NotoB'),),
+                  child: const Text(
+                    '검색',
+                    style: TextStyle(
+                        fontSize: FontSize.large,
+                        color: Colors.white,
+                        fontFamily: 'NotoB'),
+                  ),
                 ),
-              ),
+              )
             ],
           ),
         ),
@@ -104,23 +113,23 @@ class SearchAddress extends GetView<SearchAddressController> {
     );
   }
 
-  _buildCategoryToogleLayout(){
+  _buildCategoryToogleLayout() {
     return Obx(
-          () => Column(
+      () => Column(
         children: [
           ToggleButtons(
             direction: Axis.horizontal,
             onPressed: (int index) {
               // All buttons are selectable.
               controller.selectedCategorys[0][index] =
-              !controller.selectedCategorys[0][index];
+                  !controller.selectedCategorys[0][index];
             },
-            borderRadius: const BorderRadius.all(Radius.circular(8)),
+            borderRadius: const BorderRadius.all(Radius.circular(RadiusSize.small)),
             selectedBorderColor: Colors.green[700],
             selectedColor: Colors.white,
             fillColor: Colors.green[200],
             color: Colors.green[400],
-            constraints:  BoxConstraints(
+            constraints: BoxConstraints(
               minHeight: GapSize.xxLarge,
               minWidth: WidthWithRatio.xxLarge,
             ),
@@ -135,14 +144,14 @@ class SearchAddress extends GetView<SearchAddressController> {
             onPressed: (int index) {
               // All buttons are selectable.
               controller.selectedCategorys[1][index] =
-              !controller.selectedCategorys[1][index];
+                  !controller.selectedCategorys[1][index];
             },
-            borderRadius: const BorderRadius.all(Radius.circular(8)),
+            borderRadius: const BorderRadius.all(Radius.circular(RadiusSize.small)),
             selectedBorderColor: Colors.green[700],
             selectedColor: Colors.white,
             fillColor: Colors.green[200],
             color: Colors.green[400],
-            constraints:  BoxConstraints(
+            constraints: BoxConstraints(
               minHeight: GapSize.xxLarge,
               minWidth: WidthWithRatio.xxLarge,
             ),
@@ -157,14 +166,14 @@ class SearchAddress extends GetView<SearchAddressController> {
             onPressed: (int index) {
               // All buttons are selectable.
               controller.selectedCategorys[2][index] =
-              !controller.selectedCategorys[2][index];
+                  !controller.selectedCategorys[2][index];
             },
-            borderRadius: const BorderRadius.all(Radius.circular(8)),
+            borderRadius: const BorderRadius.all(Radius.circular(RadiusSize.small)),
             selectedBorderColor: Colors.green[700],
             selectedColor: Colors.white,
             fillColor: Colors.green[200],
             color: Colors.green[400],
-            constraints:  BoxConstraints(
+            constraints: BoxConstraints(
               minHeight: GapSize.xxLarge,
               minWidth: WidthWithRatio.xxLarge,
             ),
