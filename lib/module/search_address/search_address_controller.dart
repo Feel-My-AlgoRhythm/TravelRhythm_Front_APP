@@ -1,25 +1,26 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:get/get.dart';
-import 'package:proj4dart/proj4dart.dart' as proj4;
-import 'package:sw_travelrhythm/model/search_address_model.dart';
+import 'package:sw_travelrhythm/function/api_func.dart';
 import 'package:sw_travelrhythm/module/naver_map/nmap_controller.dart';
 
-class SearchAddressController extends GetxController {
-  final dio = Dio();
-  final mapController = Get.find<NMapController>();
+import '../../model/RegionModel.dart';
 
-  SearchAddressModel? searchAddressModel;
-  var addressData = <Juso>[].obs;
+class SearchAddressController extends GetxController {
+  final api = Get.find<ApiFunction>();
+  final mapController = Get.find<NMapController>();
 
   var editAddress = TextEditingController();
   var editAddressFocus = FocusNode();
 
+  late List<Content> regionList;
+  RxList<String> regionNameList = [''].obs;
+
+  RxString selectedRegion = ''.obs;
+
   final List<List<Widget>> categorys = [
-    <Widget>[const Text('카테고리 1'), const Text('카테고리 2'), const Text('카테고리 3')],
-    <Widget>[const Text('카테고리 4'), const Text('카테고리 5'), const Text('카테고리 6')],
-    <Widget>[const Text('카테고리 7'), const Text('카테고리 8'), const Text('카테고리 9')]
+    <Widget>[const Text('자연 관광'), const Text('역사 관광'), const Text('체험 관광')],
+    <Widget>[const Text('문화 관광'), const Text('레저스포츠'), const Text('쇼핑')],
+    <Widget>[const Text('음식'), const Text('숙박'), const Text('기타 관광')]
   ];
 
   List<RxList<bool>> selectedCategorys = [
@@ -30,113 +31,35 @@ class SearchAddressController extends GetxController {
 
   @override
   void onInit() async {
-    editAddress.addListener(addressListener);
-  }
-
-  void addressListener() async {
-    if (addressValidator(editAddress.text)) {
-      await getSearchAddressData(editAddress.text);
+    regionList = (await getRegionList())!;
+    for (var element in regionList) {
+      regionNameList.add(element.regionName!);
     }
-  }
-
-  Future<void> getSearchAddressData(String keyword) async {
-    final data = {
-      "confmKey": "devU01TX0FVVEgyMDIyMDgxMDE2MDcyNTExMjg2NzU=",
-      "currentPage": 1,
-      "countPerPage": 40,
-      "keyword": keyword,
-      "resultType": "json",
-    };
-
-    final res = await dio.post(
-        "https://business.juso.go.kr/addrlink/addrLinkApi.do",
-        queryParameters: data);
-
-    if (res.data['results']['common']['errorCode'] == "0") {
-      searchAddressModel = SearchAddressModel.fromJson(res.data);
-    } else {
-      return;
-    }
-
-    final List<dynamic>? jusoDataList =
-        searchAddressModel?.results?.toJson()['juso'];
-
-    if (jusoDataList != null) {
-      if (jusoDataList.isNotEmpty) {
-        addressData.value =
-            jusoDataList.map((map) => Juso.fromJson(map)).toList();
-      }
-    }
+    regionNameList.removeAt(0);
+    selectedRegion.value = regionNameList.value[0];
+    super.onInit();
   }
 
   bool addressValidator(String address) {
-    final validationList = [
-      "OR",
-      "SELECT",
-      "INSERT",
-      "DELETE",
-      "UPDATE",
-      "CREATE",
-      "DROP",
-      "EXEC",
-      "UNION",
-      "FETCH",
-      "DECLARE",
-      "TRUNCATE"
-    ];
-
-    if (address.length < 2) {
-      return false;
-    }
-    if (address.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
-      return false;
-    }
-    for (var val in validationList) {
-      if (address.contains(val)) {
-        return false;
-      }
-    }
-
     return true;
   }
 
-/*  Future<void> goToMapWithAddress(
-      {required String admCd,
-      required String rnMgtSn,
-      required String udrtYn,
-      required String buldMnnm,
-      required String buldSlno}) async {
-    final data = {
-      "confmKey": "U01TX0FVVEgyMDIyMDgwNTE3MDYyNzExMjg1NTk=",
-      "admCd": admCd,
-      "rnMgtSn": rnMgtSn,
-      "udrtYn": udrtYn,
-      "buldMnnm": buldMnnm,
-      "buldSlno": buldSlno,
-      "resultType": "json",
-    };
+  void setSelectedRegion(String value) {
+    selectedRegion.value = value;
+  }
 
-    final res = await dio.post(
-        "https://business.juso.go.kr/addrlink/addrCoordApi.do",
-        queryParameters: data);
-    print(res.data.toString());
-    final entX = double.parse(res.data['results']['juso'][0]['entX']);
-    final entY = double.parse(res.data['results']['juso'][0]['entY']);
+  Future<List<Content>?> getRegionList() async {
+    final res = await api.dio.get('/regions', queryParameters: {"size": 25});
+    RegionModel regionModel = RegionModel.fromJson(res.data);
+    return regionModel.content;
+  }
 
-    final coord_X = (entX * 1000000).round() / 1000000;
-    final coord_Y = (entY * 1000000).round() / 1000000;
+  search(int regionIndex, int bigCategoryIndex) async {
+    final data = {"bigCategoryId": bigCategoryIndex, "regionId": regionIndex};
+    final res = await api.dio.get('/places', queryParameters: data);
+  }
 
-    var pointDst = proj4.Point(x: coord_X, y: coord_Y);
-    var projSrc = proj4.Projection.get('EPSG:4326')!;
-    var projDst = proj4.Projection.get('EPSG:23700') ??
-        proj4.Projection.add(
-          'EPSG:23700',
-          '+proj=tmerc +lat_0=38 +lon_0=127.5 +k=0.9996 +x_0=1000000 +y_0=2000000 +ellps=GRS80 +units=m +no_defs',
-        );
-    var point = projDst.transform(projSrc, pointDst);
-    print(point.toArray());
-    final LatLng position = LatLng(point.y, point.x);
-    mapController.goToSelectedLocation(position);
-    Get.back();
-  }*/
+  int getRegionIdWithString(String region) {
+    return regionNameList.indexOf(region) + 1;
+  }
 }

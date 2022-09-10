@@ -1,3 +1,4 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sw_travelrhythm/constant/style/size.dart';
@@ -29,47 +30,24 @@ class SearchAddress extends GetView<SearchAddressController> {
                       const SizedBox(
                         height: GapSize.small,
                       ),
-                      Container(
-                        padding: const EdgeInsets.only(bottom: GapSize.xSmall),
-                        width: (Get.width / 4) * 3,
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey, width: 1.0)),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: GapSize.xSmall),
-                          child: TextField(
-                            controller: controller.editAddress,
-                            focusNode: controller.editAddressFocus,
-                            style: const TextStyle(
-                                fontSize: FontSize.large,
-                                fontFamily: 'NotoSansKR-Medium'),
-                            decoration: const InputDecoration(
-                              hintText: '지역 검색',
-                              hintStyle: TextStyle(
-                                  fontSize: FontSize.large,
-                                  fontFamily: 'NotoSansKR-Medium',
-                                  color: Colors.grey),
-                              contentPadding: EdgeInsets.zero,
-                              filled: false,
-                              border: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Colors.grey,
-                                ),
-                              ),
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Colors.grey,
-                                ),
-                              ),
-                              focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Colors.grey,
-                                ),
-                              ),
-                              disabledBorder: InputBorder.none,
-                              errorBorder: InputBorder.none,
-                              focusedErrorBorder: InputBorder.none,
-                            ),
+                      Obx(
+                        () => DropdownButton2(
+                          isExpanded: true,
+                          items: controller.regionNameList.value
+                              .map((val) => DropdownMenuItem<String>(
+                                    value: val,
+                                    child: Text(val),
+                                  ))
+                              .toList(),
+                          value: controller.selectedRegion.value,
+                          onChanged: (val) {
+                            controller.setSelectedRegion(val.toString());
+                          },
+                          dropdownMaxHeight: Get.height * 0.5,
+                          hint: const Text(
+                            '지역 검색',
+                            style:
+                                TextStyle(fontSize: 16.0, color: Colors.grey),
                           ),
                         ),
                       ),
@@ -93,7 +71,10 @@ class SearchAddress extends GetView<SearchAddressController> {
                 height: ButtonHeight.large,
                 child: ElevatedButton(
                   onPressed: () {
-                    Get.back();
+                    controller.search(
+                        controller.getRegionIdWithString(
+                            controller.selectedRegion.value),
+                        1);
                   },
                   child: const Text(
                     '검색',

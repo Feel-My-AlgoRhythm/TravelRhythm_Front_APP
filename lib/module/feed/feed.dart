@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
@@ -16,8 +15,7 @@ class Feed extends GetView<FeedController> {
           padding: const EdgeInsets.only(top: GapSize.medium),
           color: Colors.white,
           child: RefreshIndicator(
-            onRefresh: () async {
-            },
+            onRefresh: () async {},
             triggerMode: RefreshIndicatorTriggerMode.anywhere,
             child: ListView(
               shrinkWrap: true,
@@ -58,17 +56,9 @@ class Feed extends GetView<FeedController> {
       child: InkWell(
         onTap: () {},
         child: Container(
-          decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.4),
-                spreadRadius: 3,
-                blurRadius: 5,
-                offset: const Offset(0, 0), // changes position of shadow
-              )
-            ],
+          decoration: const BoxDecoration(
             color: Colors.white,
-            borderRadius: const BorderRadius.vertical(
+            borderRadius: BorderRadius.vertical(
                 bottom: Radius.circular(RadiusSize.medium)),
           ),
           child: Column(
@@ -76,14 +66,22 @@ class Feed extends GetView<FeedController> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
-                  'asset/image/logo/splash_logo.png'
+                'asset/image/logo/splash_logo.png',
+                width: WidthWithRatio.xxxLarge,
+                height: WidthWithRatio.xxxLarge,
               ),
               const SizedBox(
                 height: GapSize.medium,
               ),
-              const Text('장소 이름', style: TextStyle(color: Colors.grey, fontSize: FontSize.large),),
-              const Text('장소 설명', style: TextStyle(color: Colors.grey, fontSize: FontSize.small),),
-              SizedBox(
+              const Text(
+                '장소 이름',
+                style: TextStyle(color: Colors.grey, fontSize: FontSize.large),
+              ),
+              const Text(
+                '장소 설명',
+                style: TextStyle(color: Colors.grey, fontSize: FontSize.small),
+              ),
+              const SizedBox(
                 height: GapSize.xxLarge,
               )
             ],
