@@ -82,7 +82,7 @@ class NMap extends GetView<NMapController> {
     return Align(
         alignment: Alignment.topCenter,
         child: Container(
-          height: (Get.height - kToolbarHeight) * 0.2,
+          height: (Get.height - kToolbarHeight) * 0.22,
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
@@ -164,19 +164,11 @@ class NMap extends GetView<NMapController> {
                 ),
               ),
               SizedBox(
-                height: ButtonHeight.medium,
+                height: ButtonHeight.xxLarge,
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: [
-                    _buildCategoryButton(() {}, '자연 관광'),
-                    _buildCategoryButton(() {}, '역사 관광'),
-                    _buildCategoryButton(() {}, '체험 관광'),
-                    _buildCategoryButton(() {}, '문화 관광'),
-                    _buildCategoryButton(() {}, '레저스포츠'),
-                    _buildCategoryButton(() {}, '쇼핑'),
-                    _buildCategoryButton(() {}, '음식'),
-                    _buildCategoryButton(() {}, '숙박'),
-                    _buildCategoryButton(() {}, '기타 관광'),
+                    _buildCategoryButton(),
                   ],
                 ),
               )
@@ -185,17 +177,39 @@ class NMap extends GetView<NMapController> {
         ));
   }
 
-  _buildCategoryButton(Function() onPressed, String category) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: GapSize.xxSmall),
-      child: SizedBox(
-        height: ButtonHeight.small,
-        child: ElevatedButton(
-          onPressed: onPressed,
-          child: Text(category),
-        ),
-      ),
-    );
+  _buildCategoryButton() {
+    return Obx(() => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: GapSize.small),
+        child: Row(
+          children: List.generate(controller.selectedCategorys.length, (index) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: GapSize.xxxSmall),
+              child: Material(
+                color: Colors.white,
+                child: InkWell(
+                    borderRadius: BorderRadius.circular(RadiusSize.large),
+                    splashColor: Colors.lightGreen,
+                    onTap: () {
+                      controller.onTapToggleButton(index);
+                    },
+                    child: Ink(
+                      decoration: BoxDecoration(
+                        color: controller.selectedCategorys[index]
+                            ? Colors.lightGreen
+                            : Colors.white,
+                        borderRadius: BorderRadius.circular(RadiusSize.large),
+                        border: Border.all(color: Colors.green),
+                      ),
+                      child: Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: GapSize.small,
+                              vertical: GapSize.xxSmall),
+                          child: controller.categorys[index]),
+                    )),
+              ),
+            );
+          }),
+        )));
   }
 
   _buildBottomSheet() {

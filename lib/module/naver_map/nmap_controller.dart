@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -11,17 +12,29 @@ class NMapController extends GetxController {
   LocationTrackingMode trackingMode = LocationTrackingMode.Follow;
   RxList<Marker> markers = <Marker>[].obs;
   SolidController solidController = SolidController();
+
+  final List<Widget> categorys = [
+    const Text('자연 관광'),
+    const Text('역사 관광'),
+    const Text('체험 관광'),
+    const Text('문화 관광'),
+    const Text('레저스포츠'),
+    const Text('쇼핑'),
+    const Text('음식'),
+    const Text('숙박'),
+    const Text('기타 관광')
+  ];
+
+  RxList<bool> selectedCategorys =
+      <bool>[false, false, false, false, false, false, false, false, false].obs;
+
   late Position position;
   late LatLng ownLocation;
+
   @override
   void onInit() async {
     position = await Geolocator.getCurrentPosition();
     ownLocation = LatLng(position.latitude, position.longitude);
-    markers.add(Marker(
-        markerId: DateTime.now().toIso8601String(),
-        position: ownLocation,
-        infoWindow: '테스트',
-        onMarkerTab: onMarkerTap));
     super.onInit();
   }
 
@@ -45,6 +58,14 @@ class NMapController extends GetxController {
     nmapController.setLocationTrackingMode(LocationTrackingMode.Follow);
   }
 
+  onTapToggleButton(int index) {
+    for (int indexBtn = 0; indexBtn < selectedCategorys.length; indexBtn++) {
+      if (indexBtn == index) {
+        selectedCategorys[indexBtn] = !selectedCategorys[indexBtn];
+      }
+    }
+  }
+
 /*  void goToSelectedLocation(LatLng position) async {
     final nmapController = await completer.future;
 
@@ -62,4 +83,6 @@ class NMapController extends GetxController {
   void onMarkerTap(Marker? marker, Map<String, int?> iconSize) {
     Get.toNamed(Routes.marker, arguments: {'position': marker?.position});
   }
+
+  void setMarkerWithMyLocation() {}
 }

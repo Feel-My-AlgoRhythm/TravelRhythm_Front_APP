@@ -44,7 +44,7 @@ class SearchAddressController extends GetxController {
   }
 
   void setSelectedRegion(String value) {
-    selectedRegion!.value = value;
+    selectedRegion.value = value;
   }
 
   Future<List<Content>?> getRegionList() async {
