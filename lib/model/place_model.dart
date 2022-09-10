@@ -74,8 +74,8 @@ class Content {
   String? regionName;
   int? smallCategoryId;
   String? smallCategoryName;
-  String? x;
-  String? y;
+  double? x;
+  double? y;
 
   Content(
       {this.addressRoadName,
