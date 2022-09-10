@@ -26,7 +26,7 @@ class NMapController extends GetxController {
   ];
 
   RxList<bool> selectedCategorys =
-      <bool>[false, false, false, false, false, false, false, false, false].obs;
+      <bool>[true, true, true, true, true, true, true, true, true].obs;
 
   late Position position;
   late LatLng ownLocation;

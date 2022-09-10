@@ -12,15 +12,16 @@ class ApiFunction extends GetxService {
   );
 
   Future<ApiFunction> init() async {
-    dio.options.baseUrl = ""; //기본 url 인터셉터에 탑제
+    dio.options.baseUrl = "http://54.180.128.143:8080/api/v1"; //기본 url 인터셉터에 탑제
 
     dio.interceptors.add(InterceptorsWrapper(onRequest: (options, handler) {
       options.headers = headers; //request시에 header 탑재
+      logger.i(options.headers);
+      logger.i(options.uri);
       return handler.next(options);
     }, onResponse: (response, handler) {
-      loggerNoStack.v(response.statusCode);
-      loggerNoStack.v(response.data);
-
+      loggerNoStack.d(response.statusCode);
+      loggerNoStack.d(response.data);
       return handler.next(response);
     }, onError: (DioError exception, handler) {
       logger.e(

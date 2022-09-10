@@ -72,7 +72,7 @@ class SearchAddress extends GetView<SearchAddressController> {
                 height: ButtonHeight.large,
                 child: ElevatedButton(
                   onPressed: () {
-                    Get.back();
+                    controller.search(controller.getRegionIdWithString(controller.selectedRegion.value),1);
                   },
                   child: const Text(
                     '검색',

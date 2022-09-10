@@ -1,12 +1,12 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:sw_travelrhythm/function/api_func.dart';
 import 'package:sw_travelrhythm/module/naver_map/nmap_controller.dart';
 
 import '../../model/RegionModel.dart';
 
 class SearchAddressController extends GetxController {
-  final dio = Dio();
+  final api = Get.find<ApiFunction>();
   final mapController = Get.find<NMapController>();
 
   var editAddress = TextEditingController();
@@ -48,15 +48,15 @@ class SearchAddressController extends GetxController {
   }
 
   Future<List<Content>?> getRegionList() async {
-    final res = await dio.get('http://54.180.128.143:8080/api/v1/regions',
+    final res = await api.dio.get('/regions',
         queryParameters: {"size": 25});
     RegionModel regionModel = RegionModel.fromJson(res.data);
     return regionModel.content;
   }
 
   search(int regionIndex, int bigCategoryIndex) async {
-    final data = {"bigCategoryId": 0, "regionId": 0};
-    final res = await dio.get('http://54.180.128.143:8080/api/v1/places',
+    final data = {"bigCategoryId": bigCategoryIndex, "regionId": regionIndex};
+    final res = await api.dio.get('/places',
         queryParameters: data);
   }
 
