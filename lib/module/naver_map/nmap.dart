@@ -167,14 +167,15 @@ class NMap extends GetView<NMapController> {
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: [
-                    _buildCategoryButton(() {}, '카테고리 1'),
-                    _buildCategoryButton(() {}, '카테고리 2'),
-                    _buildCategoryButton(() {}, '카테고리 3'),
-                    _buildCategoryButton(() {}, '카테고리 4'),
-                    _buildCategoryButton(() {}, '카테고리 5'),
-                    _buildCategoryButton(() {}, '카테고리 6'),
-                    _buildCategoryButton(() {}, '카테고리 7'),
-                    _buildCategoryButton(() {}, '카테고리 8'),
+                    _buildCategoryButton(() {}, '자연 관광'),
+                    _buildCategoryButton(() {}, '역사 관광'),
+                    _buildCategoryButton(() {}, '체험 관광'),
+                    _buildCategoryButton(() {}, '문화 관광'),
+                    _buildCategoryButton(() {}, '레저스포츠'),
+                    _buildCategoryButton(() {}, '쇼핑'),
+                    _buildCategoryButton(() {}, '음식'),
+                    _buildCategoryButton(() {}, '숙박'),
+                    _buildCategoryButton(() {}, '기타 관광'),
                   ],
                 ),
               )

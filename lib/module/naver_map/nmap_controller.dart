@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:solid_bottom_sheet/solid_bottom_sheet.dart';
 import 'package:sw_travelrhythm/routes.dart';
@@ -10,9 +11,17 @@ class NMapController extends GetxController {
   LocationTrackingMode trackingMode = LocationTrackingMode.Follow;
   RxList<Marker> markers = <Marker>[].obs;
   SolidController solidController = SolidController();
-
+  late Position position;
+  late LatLng ownLocation;
   @override
   void onInit() async {
+    position = await Geolocator.getCurrentPosition();
+    ownLocation = LatLng(position.latitude, position.longitude);
+    markers.add(Marker(
+        markerId: DateTime.now().toIso8601String(),
+        position: ownLocation,
+        infoWindow: '테스트',
+        onMarkerTab: onMarkerTap));
     super.onInit();
   }
 
