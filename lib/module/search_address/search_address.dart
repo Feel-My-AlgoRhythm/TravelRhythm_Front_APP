@@ -61,7 +61,7 @@ class SearchAddress extends GetView<SearchAddressController> {
                       const SizedBox(
                         height: GapSize.small,
                       ),
-                      _buildCategoryToogleLayout(),
+                      _buildCategoryToggleLayout(),
                     ],
                   ),
                 ),
@@ -74,7 +74,7 @@ class SearchAddress extends GetView<SearchAddressController> {
                     controller.search(
                         controller.getRegionIdWithString(
                             controller.selectedRegion.value),
-                        1);
+                        controller.selectedBigCategoryId);
                   },
                   child: const Text(
                     '검색',
@@ -92,7 +92,7 @@ class SearchAddress extends GetView<SearchAddressController> {
     );
   }
 
-  _buildCategoryToogleLayout() {
+  _buildCategoryToggleLayout() {
     return Obx(
       () => Column(
         children: [
@@ -102,6 +102,11 @@ class SearchAddress extends GetView<SearchAddressController> {
               // All buttons are selectable.
               controller.selectedCategorys[0][index] =
                   !controller.selectedCategorys[0][index];
+              if (controller.selectedCategorys[0][index]) {
+                controller.selectedBigCategoryId.add(1 + index);
+              } else {
+                controller.selectedBigCategoryId.remove(1 + index);
+              }
             },
             borderRadius:
                 const BorderRadius.all(Radius.circular(RadiusSize.small)),
@@ -125,6 +130,11 @@ class SearchAddress extends GetView<SearchAddressController> {
               // All buttons are selectable.
               controller.selectedCategorys[1][index] =
                   !controller.selectedCategorys[1][index];
+              if (controller.selectedCategorys[1][index]) {
+                controller.selectedBigCategoryId.add(4 + index);
+              } else {
+                controller.selectedBigCategoryId.remove(4 + index);
+              }
             },
             borderRadius:
                 const BorderRadius.all(Radius.circular(RadiusSize.small)),
@@ -148,6 +158,11 @@ class SearchAddress extends GetView<SearchAddressController> {
               // All buttons are selectable.
               controller.selectedCategorys[2][index] =
                   !controller.selectedCategorys[2][index];
+              if (controller.selectedCategorys[2][index]) {
+                controller.selectedBigCategoryId.add(7 + index);
+              } else {
+                controller.selectedBigCategoryId.remove(7 + index);
+              }
             },
             borderRadius:
                 const BorderRadius.all(Radius.circular(RadiusSize.small)),

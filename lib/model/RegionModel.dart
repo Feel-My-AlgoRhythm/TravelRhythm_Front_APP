@@ -1,34 +1,34 @@
 class RegionModel {
-  List<Content>? content;
+  List<RegionContent>? regionContent;
 
-  RegionModel({this.content});
+  RegionModel({this.regionContent});
 
   RegionModel.fromJson(Map<String, dynamic> json) {
     if (json['content'] != null) {
-      content = <Content>[];
+      regionContent = <RegionContent>[];
       json['content'].forEach((v) {
-        content!.add(Content.fromJson(v));
+        regionContent!.add(RegionContent.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    if (content != null) {
-      data['content'] = content!.map((v) => v.toJson()).toList();
+    if (regionContent != null) {
+      data['content'] = regionContent!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
-class Content {
+class RegionContent {
   int? id;
   String? regionCode;
   String? regionName;
 
-  Content({this.id, this.regionCode, this.regionName});
+  RegionContent({this.id, this.regionCode, this.regionName});
 
-  Content.fromJson(Map<String, dynamic> json) {
+  RegionContent.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     regionCode = json['regionCode'];
     regionName = json['regionName'];

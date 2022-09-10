@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:get/get.dart';
 import 'package:sw_travelrhythm/function/api_func.dart';
+import 'package:sw_travelrhythm/model/place_model.dart';
 import 'package:sw_travelrhythm/module/naver_map/nmap_controller.dart';
 
 import '../../model/RegionModel.dart';
@@ -12,10 +14,11 @@ class SearchAddressController extends GetxController {
   var editAddress = TextEditingController();
   var editAddressFocus = FocusNode();
 
-  late List<Content> regionList;
+  late List<RegionContent> regionList;
   RxList<String> regionNameList = [''].obs;
 
   RxString selectedRegion = ''.obs;
+  List<int> selectedBigCategoryId = [];
 
   final List<List<Widget>> categorys = [
     <Widget>[const Text('자연 관광'), const Text('역사 관광'), const Text('체험 관광')],
@@ -48,18 +51,32 @@ class SearchAddressController extends GetxController {
     selectedRegion.value = value;
   }
 
-  Future<List<Content>?> getRegionList() async {
+  Future<List<RegionContent>?> getRegionList() async {
     final res = await api.dio.get('/regions', queryParameters: {"size": 25});
     RegionModel regionModel = RegionModel.fromJson(res.data);
-    return regionModel.content;
+    return regionModel.regionContent;
   }
 
-  search(int regionIndex, int bigCategoryIndex) async {
-    final data = {"bigCategoryId": bigCategoryIndex, "regionId": regionIndex};
+  search(List<int> regionIndex, List<int> bigCategoryIndex) async {
+    final data = {
+      "bigCategoryIdList": bigCategoryIndex,
+      "regionIdList": regionIndex
+    };
     final res = await api.dio.get('/places', queryParameters: data);
+    Get.find<NMapController>().placeModel = PlaceModel.fromJson(res.data);
+    Get.find<NMapController>().placeModel?.content?.forEach((content) {
+      Get.find<NMapController>().markers.add(Marker(
+            position: LatLng(content.y!, content.x!),
+            markerId: content.id!.toString(),
+            infoWindow: content.name,
+          ));
+    });
+    Get.back();
   }
 
-  int getRegionIdWithString(String region) {
-    return regionNameList.indexOf(region) + 1;
+  List<int> getRegionIdWithString(String region) {
+    List<int> regionIdList = [];
+    regionIdList.add(regionNameList.indexOf(region) + 1);
+    return regionIdList;
   }
 }
