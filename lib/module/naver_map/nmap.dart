@@ -100,6 +100,7 @@ class NMap extends GetView<NMapController> {
             children: [
               Container(
                 width: Get.width / 1.2,
+                height: ButtonHeight.xxLarge,
                 decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
@@ -186,9 +187,12 @@ class NMap extends GetView<NMapController> {
   _buildCategoryButton(Function() onPressed, String category) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: GapSize.xxSmall),
-      child: ElevatedButton(
-        onPressed: onPressed,
-        child: Text(category),
+      child: SizedBox(
+        height: ButtonHeight.small,
+        child: ElevatedButton(
+          onPressed: onPressed,
+          child: Text(category),
+        ),
       ),
     );
   }
