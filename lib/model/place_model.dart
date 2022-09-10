@@ -12,15 +12,15 @@ class PlaceModel {
 
   PlaceModel(
       {this.content,
-        this.empty,
-        this.first,
-        this.last,
-        this.number,
-        this.numberOfElements,
-        this.size,
-        this.sort,
-        this.totalElements,
-        this.totalPages});
+      this.empty,
+      this.first,
+      this.last,
+      this.number,
+      this.numberOfElements,
+      this.size,
+      this.sort,
+      this.totalElements,
+      this.totalPages});
 
   PlaceModel.fromJson(Map<String, dynamic> json) {
     if (json['content'] != null) {
@@ -79,20 +79,20 @@ class Content {
 
   Content(
       {this.addressRoadName,
-        this.bigCategoryId,
-        this.bigCategoryName,
-        this.id,
-        this.name,
-        this.naverId,
-        this.placeDetailId,
-        this.posExact,
-        this.regionCode,
-        this.regionId,
-        this.regionName,
-        this.smallCategoryId,
-        this.smallCategoryName,
-        this.x,
-        this.y});
+      this.bigCategoryId,
+      this.bigCategoryName,
+      this.id,
+      this.name,
+      this.naverId,
+      this.placeDetailId,
+      this.posExact,
+      this.regionCode,
+      this.regionId,
+      this.regionName,
+      this.smallCategoryId,
+      this.smallCategoryName,
+      this.x,
+      this.y});
 
   Content.fromJson(Map<String, dynamic> json) {
     addressRoadName = json['addressRoadName'];

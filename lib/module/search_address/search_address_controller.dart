@@ -37,6 +37,7 @@ class SearchAddressController extends GetxController {
     }
     regionNameList.removeAt(0);
     selectedRegion.value = regionNameList.value[0];
+    super.onInit();
   }
 
   bool addressValidator(String address) {
@@ -48,19 +49,17 @@ class SearchAddressController extends GetxController {
   }
 
   Future<List<Content>?> getRegionList() async {
-    final res = await api.dio.get('/regions',
-        queryParameters: {"size": 25});
+    final res = await api.dio.get('/regions', queryParameters: {"size": 25});
     RegionModel regionModel = RegionModel.fromJson(res.data);
     return regionModel.content;
   }
 
   search(int regionIndex, int bigCategoryIndex) async {
     final data = {"bigCategoryId": bigCategoryIndex, "regionId": regionIndex};
-    final res = await api.dio.get('/places',
-        queryParameters: data);
+    final res = await api.dio.get('/places', queryParameters: data);
   }
 
-  int getRegionIdWithString(String region){
+  int getRegionIdWithString(String region) {
     return regionNameList.indexOf(region) + 1;
   }
 }
