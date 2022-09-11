@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 import 'package:solid_bottom_sheet/solid_bottom_sheet.dart';
 import 'package:sw_travelrhythm/constant/style/size.dart';
 import 'package:sw_travelrhythm/constant/style/style.dart';
-import 'package:sw_travelrhythm/module/feed/feed.dart';
 import 'package:sw_travelrhythm/module/naver_map/nmap_controller.dart';
+import 'package:sw_travelrhythm/module/naver_map/widget/feed.dart';
 import 'package:sw_travelrhythm/routes.dart';
 
 class NMap extends GetView<NMapController> {

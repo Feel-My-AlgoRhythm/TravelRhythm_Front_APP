@@ -5,7 +5,7 @@ import 'package:sw_travelrhythm/function/api_func.dart';
 import 'package:sw_travelrhythm/model/place_model.dart';
 import 'package:sw_travelrhythm/module/naver_map/nmap_controller.dart';
 
-import '../../model/RegionModel.dart';
+import '../../model/region_model.dart';
 
 class SearchAddressController extends GetxController {
   final api = Get.find<ApiFunction>();

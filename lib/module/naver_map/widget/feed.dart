@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:sw_travelrhythm/constant/style/size.dart';
-import 'package:sw_travelrhythm/module/feed/feed_controller.dart';
+import 'package:sw_travelrhythm/module/naver_map/nmap_controller.dart';
 
-class Feed extends GetView<FeedController> {
+class Feed extends GetView<NMapController> {
   const Feed({Key? key}) : super(key: key);
 
   @override
