@@ -11,15 +11,17 @@ import 'package:sw_travelrhythm/model/place_model.dart';
 import 'package:sw_travelrhythm/routes.dart';
 
 class NMapController extends GetxController {
-  final api = Get.find<ApiFunction>();
+  final api = Get.find<ApiFunction>(); //API
 
   Completer<NaverMapController> completer = Completer();
   MapType mapType = MapType.Basic;
   LocationTrackingMode trackingMode = LocationTrackingMode.Follow;
-  RxList<Marker> markers = <Marker>[].obs;
-  SolidController solidController = SolidController();
-  List<int> bigCategoryIdList = [1];
+  RxList<Marker> markers = <Marker>[].obs; //마커 관리 리스트
   PlaceModel? placeModel;
+  SolidController solidController = SolidController();
+
+  List<int> bigCategoryIdList = [1]; //toggle이 true인 상태 bigCategory들 ID 저장 ( 기본 1 )
+  List<int> regionIdList = []; //검색에서 들어온 지역
 
   final List<Widget> categorys = [
     const Text('자연 관광'),
@@ -31,26 +33,29 @@ class NMapController extends GetxController {
     const Text('음식'),
     const Text('숙박'),
     const Text('기타 관광')
-  ];
-
+  ];//토글 버튼 관리
   RxList<bool> selectedCategorys =
-      <bool>[true, false, false, false, false, false, false, false, false].obs;
+      <bool>[true, false, false, false, false, false, false, false, false].obs; //토글 관리
+
+  bool isSearchMode = false; //검색 모드 분기용
 
   late Position position;
-  late LatLng ownLocation;
+  late LatLng ownLocation; //현위치 가지고있는 변수
 
   @override
   void onInit() async {
-    position = await Geolocator.getCurrentPosition();
-    ownLocation = LatLng(position.latitude, position.longitude);
-    setMarkerWithMyLocation();
+    position = await Geolocator.getCurrentPosition(); //현위치 정보
+    ownLocation = LatLng(position.latitude, position.longitude); //현위치 좌표 저장
+    setMarker(); // 첫 실행시 현위치 기반으로 마커 설정
     super.onInit();
   }
 
+  ///실행시키면 bottomSheet 꺼짐
   void closeSheet() {
     solidController.hide();
   }
 
+  ///naverMap 만들어졌을시 실행
   void onMapCreated(NaverMapController controller) async {
     if (completer.isCompleted) completer = Completer();
     completer.complete(controller);
@@ -58,11 +63,14 @@ class NMapController extends GetxController {
     solidController.show();
   }
 
+  ///현위치로 이동
   void goToMyLocation() async {
     final nmapController = await completer.future;
     nmapController.setLocationTrackingMode(LocationTrackingMode.Follow);
   }
 
+  ///메인 화면에서 대분류 카테고리 탭했을 시 실행되는 함수
+  ///들어온 데이터에 해당하는 마커를 clear 후 찍어줌
   onTapToggleButton(int index) async {
     for (int indexBtn = 0; indexBtn < selectedCategorys.length; indexBtn++) {
       if (indexBtn == index) {
@@ -72,38 +80,36 @@ class NMapController extends GetxController {
         } else {
           bigCategoryIdList.remove(index + 1);
         }
-        final data = {
-          "bigCategoryIdList": bigCategoryIdList,
-
-        };
-        final res = await api.dio.get('/places', queryParameters: data);
-        placeModel = PlaceModel.fromJson(res.data);
-        markers.clear();
-        placeModel?.content?.forEach((content) {
-          markers.add(Marker(
-            position: LatLng(content.y!, content.x!),
-            markerId: content.id!.toString(),
-            infoWindow: content.name,
-          ));
-        });
       }
     }
+    setMarker();
   }
-
-  void setMarkerWithMyLocation() async {
+  ///마커 변경 함수 ( 검색 시나 위에 카테고리 토글을 클릭했을시 [Invoke] )
+  ///
+  ///[isSearchMode]로 검색 중인지 현위치 기반으로 탐색 중인지 조건을 분기하여 api 파라미터를 줌
+  void setMarker() async {
     //TODO changeToMylocationData [ownPosition]
-    final data = {
-      "bigCategoryIdList": bigCategoryIdList,
-      "startX": 127.03516913869333,
-      "startY": 37.54462268142329,
-      "endX": 127.95917232009253,
-      "endY": 37.546829241192285
-    };
+    final Map<String, Object> data;
+
+    //검색 조건 분기
+    if (isSearchMode) { //검색 지역 기반
+      data = {
+        "bigCategoryIdList": bigCategoryIdList,
+        "regionIdList": regionIdList,
+      };
+    } else { //현위치 기반
+      data = {
+        "bigCategoryIdList": bigCategoryIdList,
+        "startX": 127.03516913869333,
+        "startY": 37.54462268142329,
+        "endX": 127.95917232009253,
+        "endY": 37.546829241192285
+      };
+    }
+
     final res = await api.dio.get('/places', queryParameters: data);
     placeModel = PlaceModel.fromJson(res.data);
-
     markers.clear();
-
     placeModel?.content?.forEach((content) {
       markers.add(Marker(
         position: LatLng(content.y!, content.x!),
@@ -114,12 +120,12 @@ class NMapController extends GetxController {
   }
 
   List<Widget> setPlaceDataAtFeed() {
-    return List.generate(placeModel!.content!.length, (index){
+    return List.generate(placeModel!.content!.length, (index) {
       return Container(
         decoration: const BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.vertical(
-              bottom: Radius.circular(RadiusSize.medium)),
+          borderRadius:
+              BorderRadius.vertical(bottom: Radius.circular(RadiusSize.medium)),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.max,
@@ -135,11 +141,13 @@ class NMapController extends GetxController {
             ),
             Text(
               placeModel!.content![index].name!,
-              style: const TextStyle(color: Colors.grey, fontSize: FontSize.large),
+              style:
+                  const TextStyle(color: Colors.grey, fontSize: FontSize.large),
             ),
             Text(
               placeModel!.content![index].addressRoadName!,
-              style: const TextStyle(color: Colors.grey, fontSize: FontSize.small),
+              style:
+                  const TextStyle(color: Colors.grey, fontSize: FontSize.small),
             ),
             const SizedBox(
               height: GapSize.xxLarge,
@@ -150,9 +158,7 @@ class NMapController extends GetxController {
     });
   }
 
-
   void onMarkerTap(Marker? marker, Map<String, int?> iconSize) {
     Get.toNamed(Routes.marker, arguments: {'position': marker?.position});
   }
-
 }

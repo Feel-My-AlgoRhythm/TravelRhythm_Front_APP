@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:sw_travelrhythm/function/api_func.dart';
 import 'package:sw_travelrhythm/module/analysis/analysis.dart';
@@ -18,6 +19,7 @@ void main() async {
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await Get.putAsync(() => ApiFunction().init());
   FlutterNativeSplash.remove(); //로딩 끝나는 위치에 두어야 함(스플래시 제거)
+  Geolocator.requestPermission();
   runApp(const MyApp());
 }
 

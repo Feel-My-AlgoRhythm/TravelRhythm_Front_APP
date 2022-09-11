@@ -62,21 +62,9 @@ class SearchAddressController extends GetxController {
       "bigCategoryIdList": bigCategoryIndex,
       "regionIdList": regionIndex
     };
-    final res = await api.dio.get('/places', queryParameters: data);
-    mapController.placeModel = PlaceModel.fromJson(res.data);
-
-    //markerClear
-    mapController.markers.clear();
-
-    mapController.placeModel?.content?.forEach((content) {
-      mapController.markers.add(Marker(
-        position: LatLng(content.y!, content.x!),
-        markerId: content.id!.toString(),
-        infoWindow: content.name,
-      ));
-    });
 
     mapController.bigCategoryIdList = bigCategoryIndex;
+    mapController.regionIdList = regionIndex;
 
     //mapCategory Intialize
     for (var i = 0; i < mapController.selectedCategorys.value.length ; i++) {
@@ -87,6 +75,11 @@ class SearchAddressController extends GetxController {
     for (var index in bigCategoryIndex) {
       mapController.selectedCategorys[index-1] = true;
     }
+
+    mapController.isSearchMode = true;
+
+    mapController.setMarker();
+
     Get.back();
   }
 
