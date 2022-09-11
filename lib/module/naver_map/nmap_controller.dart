@@ -20,7 +20,9 @@ class NMapController extends GetxController {
   PlaceModel? placeModel;
   SolidController solidController = SolidController();
 
-  List<int> bigCategoryIdList = [1]; //toggle이 true인 상태 bigCategory들 ID 저장 ( 기본 1 )
+  List<int> bigCategoryIdList = [
+    1
+  ]; //toggle이 true인 상태 bigCategory들 ID 저장 ( 기본 1 )
   List<int> regionIdList = []; //검색에서 들어온 지역
 
   final List<Widget> categorys = [
@@ -33,14 +35,25 @@ class NMapController extends GetxController {
     const Text('음식'),
     const Text('숙박'),
     const Text('기타 관광')
-  ];//토글 버튼 관리
-  RxList<bool> selectedCategorys =
-      <bool>[true, false, false, false, false, false, false, false, false].obs; //토글 관리
+  ]; //토글 버튼 관리
+  RxList<bool> selectedCategorys = <bool>[
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+  ].obs; //토글 관리
 
   bool isSearchMode = false; //검색 모드 분기용
 
   late Position position;
   late LatLng ownLocation; //현위치 가지고있는 변수
+
+  var isLoading = true.obs;
 
   @override
   void onInit() async {
@@ -84,20 +97,24 @@ class NMapController extends GetxController {
     }
     setMarker();
   }
+
   ///마커 변경 함수 ( 검색 시나 위에 카테고리 토글을 클릭했을시 [Invoke] )
   ///
   ///[isSearchMode]로 검색 중인지 현위치 기반으로 탐색 중인지 조건을 분기하여 api 파라미터를 줌
   void setMarker() async {
+    isLoading.value = true;
     //TODO changeToMylocationData [ownPosition]
     final Map<String, Object> data;
 
     //검색 조건 분기
-    if (isSearchMode) { //검색 지역 기반
+    if (isSearchMode) {
+      //검색 지역 기반
       data = {
         "bigCategoryIdList": bigCategoryIdList,
         "regionIdList": regionIdList,
       };
-    } else { //현위치 기반
+    } else {
+      //현위치 기반
       data = {
         "bigCategoryIdList": bigCategoryIdList,
         "startX": 127.03516913869333,
@@ -117,10 +134,12 @@ class NMapController extends GetxController {
         infoWindow: content.name,
       ));
     });
+    isLoading.value = false;
   }
 
-  List<Widget> setPlaceDataAtFeed() {
-    return List.generate(placeModel!.content!.length, (index) {
+  Widget setPlaceDataAtFeed() {
+    return ListView(
+        children: List.generate(placeModel!.content!.length, (index) {
       return Container(
         decoration: const BoxDecoration(
           color: Colors.white,
@@ -155,7 +174,7 @@ class NMapController extends GetxController {
           ],
         ),
       );
-    });
+    }));
   }
 
   void onMarkerTap(Marker? marker, Map<String, int?> iconSize) {

@@ -11,27 +11,16 @@ class Feed extends GetView<NMapController> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Container(
-          padding: const EdgeInsets.only(top: GapSize.medium),
-          color: Colors.white,
-          child: RefreshIndicator(
-            onRefresh: () async {},
-            triggerMode: RefreshIndicatorTriggerMode.anywhere,
-            child: ListView(
-              shrinkWrap: true,
-              physics: const BouncingScrollPhysics(),
-              children: [
-                _buildFeedListTile(),
-                _buildFeedListTile(),
-                _buildFeedListTile(),
-                _buildFeedListTile(),
-                _buildFeedListTile(),
-                _buildFeedListTile(),
-                _buildFeedListTile(),
-                _buildFeedListTile(),
-                _buildFeedListTile(),
-                _buildFeedListTile(),
-              ],
+        Obx(
+          () => Container(
+            padding: const EdgeInsets.only(top: GapSize.medium),
+            color: Colors.white,
+            child: RefreshIndicator(
+              onRefresh: () async {},
+              triggerMode: RefreshIndicatorTriggerMode.anywhere,
+              child: controller.isLoading.value
+                  ? const Center(child: CircularProgressIndicator())
+                  : controller.setPlaceDataAtFeed(),
             ),
           ),
         ),
