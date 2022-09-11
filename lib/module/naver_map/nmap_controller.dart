@@ -8,7 +8,6 @@ import 'package:solid_bottom_sheet/solid_bottom_sheet.dart';
 import 'package:sw_travelrhythm/constant/style/size.dart';
 import 'package:sw_travelrhythm/function/api_func.dart';
 import 'package:sw_travelrhythm/model/place_model.dart';
-import 'package:sw_travelrhythm/module/feed/feed_controller.dart';
 import 'package:sw_travelrhythm/routes.dart';
 
 class NMapController extends GetxController {
@@ -52,14 +51,6 @@ class NMapController extends GetxController {
     solidController.hide();
   }
 
-  onMapTap(LatLng position) async {
-    markers.add(Marker(
-        markerId: DateTime.now().toIso8601String(),
-        position: position,
-        infoWindow: '테스트',
-        onMarkerTab: onMarkerTap));
-  }
-
   void onMapCreated(NaverMapController controller) async {
     if (completer.isCompleted) completer = Completer();
     completer.complete(controller);
@@ -95,13 +86,8 @@ class NMapController extends GetxController {
             infoWindow: content.name,
           ));
         });
-        Get.find<FeedController>().setPlaceDataAtFeed();
       }
     }
-  }
-
-  void onMarkerTap(Marker? marker, Map<String, int?> iconSize) {
-    Get.toNamed(Routes.marker, arguments: {'position': marker?.position});
   }
 
   void setMarkerWithMyLocation() async {
@@ -110,11 +96,13 @@ class NMapController extends GetxController {
       "bigCategoryIdList": bigCategoryIdList,
       "startX": 127.03516913869333,
       "startY": 37.54462268142329,
-      "endX": 126.95917232009253,
+      "endX": 127.95917232009253,
       "endY": 37.546829241192285
     };
     final res = await api.dio.get('/places', queryParameters: data);
     placeModel = PlaceModel.fromJson(res.data);
+
+    markers.clear();
 
     placeModel?.content?.forEach((content) {
       markers.add(Marker(
@@ -147,11 +135,11 @@ class NMapController extends GetxController {
             ),
             Text(
               placeModel!.content![index].name!,
-              style: TextStyle(color: Colors.grey, fontSize: FontSize.large),
+              style: const TextStyle(color: Colors.grey, fontSize: FontSize.large),
             ),
             Text(
               placeModel!.content![index].addressRoadName!,
-              style: TextStyle(color: Colors.grey, fontSize: FontSize.small),
+              style: const TextStyle(color: Colors.grey, fontSize: FontSize.small),
             ),
             const SizedBox(
               height: GapSize.xxLarge,
@@ -161,4 +149,10 @@ class NMapController extends GetxController {
       );
     });
   }
+
+
+  void onMarkerTap(Marker? marker, Map<String, int?> iconSize) {
+    Get.toNamed(Routes.marker, arguments: {'position': marker?.position});
+  }
+
 }

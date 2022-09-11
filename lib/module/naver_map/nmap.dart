@@ -28,7 +28,6 @@ class NMap extends GetView<NMapController> {
                   initLocationTrackingMode: controller.trackingMode,
                   locationButtonEnable: true,
                   indoorEnable: true,
-                  onMapTap: controller.onMapTap,
                   maxZoom: 20,
                   minZoom: 9,
                   logoClickEnabled: false,

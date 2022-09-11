@@ -63,14 +63,30 @@ class SearchAddressController extends GetxController {
       "regionIdList": regionIndex
     };
     final res = await api.dio.get('/places', queryParameters: data);
-    Get.find<NMapController>().placeModel = PlaceModel.fromJson(res.data);
-    Get.find<NMapController>().placeModel?.content?.forEach((content) {
-      Get.find<NMapController>().markers.add(Marker(
-            position: LatLng(content.y!, content.x!),
-            markerId: content.id!.toString(),
-            infoWindow: content.name,
-          ));
+    mapController.placeModel = PlaceModel.fromJson(res.data);
+
+    //markerClear
+    mapController.markers.clear();
+
+    mapController.placeModel?.content?.forEach((content) {
+      mapController.markers.add(Marker(
+        position: LatLng(content.y!, content.x!),
+        markerId: content.id!.toString(),
+        infoWindow: content.name,
+      ));
     });
+
+    mapController.bigCategoryIdList = bigCategoryIndex;
+
+    //mapCategory Intialize
+    for (var i = 0; i < mapController.selectedCategorys.value.length ; i++) {
+      mapController.selectedCategorys[i] = false;
+    }
+
+    //mapCategorySelected
+    for (var index in bigCategoryIndex) {
+      mapController.selectedCategorys[index-1] = true;
+    }
     Get.back();
   }
 

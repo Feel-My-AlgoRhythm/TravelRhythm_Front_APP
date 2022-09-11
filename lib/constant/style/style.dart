@@ -7,3 +7,5 @@ AppBar mainAppBar = AppBar(
 
 const TextStyle drawerListTextStyle =
     TextStyle(fontSize: FontSize.medium, fontFamily: "NanumB");
+
+List<Color> markerColor = [];
